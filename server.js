@@ -8,6 +8,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(__dirname));
 
+// 根路径直接返回主页面
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'yijing.html'));
+});
+
 // 智谱 GLM 配置
 const ZHIPU_API_KEY = process.env.ZHIPU_API_KEY;
 const ZHIPU_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';

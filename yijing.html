@@ -124,6 +124,10 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ text, scene: state.scene, direction: state.direction }),
                 });
+                const contentType = resp.headers.get('content-type') || '';
+                if (!contentType.includes('application/json')) {
+                    throw new Error('服务未启动或地址错误，请通过 http://localhost:3000 访问');
+                }
                 const data = await resp.json();
                 if (!resp.ok) throw new Error(data.error || '翻译失败');
                 renderResult(data);
